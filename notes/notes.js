@@ -1,26 +1,36 @@
 console.log('Starting notes.js');
 const fs = require('fs');
+
+let fetchNotes = () => {
+    "use strict";
+    //remove problem with not existing file.
+    try {
+        let notesString = fs.readFileSync('notes-data.json');
+        return JSON.parse(notesString);
+    } catch(e) {
+        return [];
+    }
+};
+let saveNotes = (notes) => {
+    "use strict";
+    fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+};
+
 let addNote = (title, body) => {
     "use strict";
-    let notes = [];
+    let notes = fetchNotes();
     let note = {
         title,
         body
     };
 
-    //remove problem with not existing file.
-    try {
-        let notesString = fs.readFileSync('notes-data.json');
-        notes = JSON.parse(notesString);
-    } catch(e) {
-
-    }
     //checking that title isnt duplicate
     let duplicateNotes = notes.filter((note) => note.title === title);
     //update json if there isnt duplicate title.
     if (duplicateNotes.length === 0 ) {
         notes.push(note);
-        fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+        saveNotes(notes);
+        return note;
     }
 
 };
