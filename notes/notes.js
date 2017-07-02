@@ -23,7 +23,6 @@ let addNote = (title, body) => {
         title,
         body
     };
-
     //checking that title isnt duplicate
     let duplicateNotes = notes.filter((note) => note.title === title);
     //update json if there isnt duplicate title.
@@ -40,11 +39,16 @@ let getAll = () => {
 };
 let getNote = (title) => {
     "use strict";
-    console.log('Reading note:', title);
+    let notes = fetchNotes();
+    let note = notes.filter(note => note.title === title);
+    return note[0];
 };
 let removeNotes = (title) => {
     "use strict";
-    console.log('Removing note:', title);
+    let notes = fetchNotes();
+    let filteredNotes = notes.filter((note) => note.title !== title);
+    saveNotes(filteredNotes);
+    return notes.length !== filteredNotes.length;
 };
 module.exports = {
     addNote,
