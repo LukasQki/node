@@ -9,7 +9,31 @@ const yargs = require('yargs'); // Simplified input
 // require written modules
 const notes = require('./notes.js');
 
-const argv = yargs.argv;
+const titleOptions = {
+    describe: 'Title of note',
+    demand: true,
+    alias: 't'
+};
+const bodyOptions = {
+    describe: 'Body of note',
+    demand: true,
+    alias: 'b'
+};
+
+const argv = yargs
+    .command('add', 'Add a new note', {
+        title: titleOptions,
+        body: bodyOptions
+    })
+    .command('list', 'List all notes')
+    .command('read', 'Read one note', {
+        title: titleOptions
+    })
+    .command('remove', 'Remove one note', {
+        title: titleOptions
+    })
+    .help()
+    .argv;
 //passing args to app: node app.js list // list is an arg
 let command = argv._[0];
 // console.log('Command: ', command);
