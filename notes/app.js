@@ -1,4 +1,4 @@
-console.log('Starting app.js');
+// console.log('Starting app.js');
 //https://nodejs.org/api/ - list of node modules.
 
 //require build in modules
@@ -12,10 +12,10 @@ const notes = require('./notes.js');
 const argv = yargs.argv;
 //passing args to app: node app.js list // list is an arg
 let command = argv._[0];
-console.log('Command: ', command);
+// console.log('Command: ', command);
 // console.log('Process: ', process.argv);
-console.log('------------------------------------');
-console.log('Yargs: ', argv);
+
+// console.log('Yargs: ', argv);
 if (command === 'add') {
     let note = notes.addNote(argv.title, argv.body);
     if (note) {
@@ -24,7 +24,14 @@ if (command === 'add') {
         console.log('Note title taken')
     }
 } else if (command === 'list') {
-    notes.getAll();
+    let allNotes = notes.getAll();
+    console.log(`Printing ${allNotes.length} note(s)`);
+    allNotes.forEach((note => {
+        "use strict";
+        console.log('---');
+        console.log(note.title);
+        console.log(note.body);
+    }));
 } else if (command === "read") {
     let noteFound = notes.getNote(argv.title);
     let message = noteFound ? noteFound.body : 'Note not found';

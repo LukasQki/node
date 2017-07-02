@@ -1,4 +1,4 @@
-console.log('Starting notes.js');
+// console.log('Starting notes.js');
 const fs = require('fs');
 
 let fetchNotes = () => {
@@ -35,7 +35,7 @@ let addNote = (title, body) => {
 };
 let getAll = () => {
     "use strict";
-    console.log('Getting all notes');
+    return fetchNotes();
 };
 let getNote = (title) => {
     "use strict";
